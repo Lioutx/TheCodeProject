@@ -1,4 +1,4 @@
-﻿namespace WebUI.Config
+﻿namespace Infrastructure.Config
 {
     public class ConnectionStrings
     {
