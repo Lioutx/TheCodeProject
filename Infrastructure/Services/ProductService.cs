@@ -25,9 +25,13 @@ namespace Infrastructure.Services
             return product;
         }
 
-        public List<Product> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
-            throw new NotImplementedException();
+            List<ProductDto> productsDto = await _productRepository.GetAll();
+
+            List<Product> products = productsDto.Select(x => _mapper.Map<Product>(x)).ToList();
+
+            return products;
         }
     }
 }

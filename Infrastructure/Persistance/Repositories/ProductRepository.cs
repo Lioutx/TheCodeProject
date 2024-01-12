@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Domain.Entities;
 using Infrastructure.Config;
 using Infrastructure.DTOs;
 using Infrastructure.Interfaces;
@@ -33,5 +34,18 @@ namespace Infrastructure.Persistance.Repositories
                 return productDto;
             }                        
         }
-    }
+
+		public async Task<List<ProductDto>> GetAll()
+		{
+			using (var connection = new NpgsqlConnection(_connectionStrings.PostgreDB))
+			{
+				string command = "SELECT * FROM product";
+				CommandDefinition commandDefinition = new CommandDefinition(command);
+
+                IEnumerable<ProductDto> productsDto = await connection.QueryAsync<ProductDto>(commandDefinition);
+
+				return productsDto.ToList();
+			}
+		}
+	}
 }

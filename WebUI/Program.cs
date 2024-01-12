@@ -1,3 +1,4 @@
+using Application;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Infrastructure;
@@ -14,7 +15,12 @@ ConnectionStrings? connectionStrings = builder.Configuration.GetSection("Connect
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-builder.Host.ConfigureContainer<ContainerBuilder>(b => b.RegisterModule(new InfrastructureModule()));
+builder.Host.ConfigureContainer<ContainerBuilder>(
+    containterBuilder =>
+    {
+        containterBuilder.RegisterModule(new ApplicationModule());
+        containterBuilder.RegisterModule(new InfrastructureModule());
+    });
 
 var app = builder.Build();
 
