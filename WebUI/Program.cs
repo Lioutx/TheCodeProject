@@ -1,5 +1,7 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Infrastructure;
 using Infrastructure.Config;
-using WebUI.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services.AddRazorPages();
 builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings"));
 
 ConnectionStrings? connectionStrings = builder.Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>();
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(b => b.RegisterModule(new InfrastructureModule()));
 
 var app = builder.Build();
 
