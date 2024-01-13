@@ -1,4 +1,5 @@
 using Application.Products.Queries;
+using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,20 +18,16 @@ namespace WebUI.Pages.Products
 
 		#region Model Properties
 
+		public List<Product> Products { get; set; }
+
 		public int Id { get; set; }
 		public string Name { get; set; }
         
         #endregion
 
-		public async void OnGet()
+		public async Task OnGetAsync()
 		{
-            var result = await _mediator.Send(new GetProductsQuery());
+            Products = await _mediator.Send(new GetProductsQuery());
 		}
-
-        public async Task<IActionResult> OnGetDataAsync()
-        {
-			var result = await _mediator.Send(new GetProductsQuery());
-			return new JsonResult(result);
-        }
     }
 }
