@@ -6,5 +6,7 @@ namespace Infrastructure.Interfaces
     {
         Task<ProductDto> Get(int productId);
 		Task<List<ProductDto>> GetAll();
-	}
+        Task<bool> Update(ProductDto product);
+        Task<int?> Create(ProductDto product);
+    }
 }

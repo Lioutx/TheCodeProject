@@ -6,5 +6,6 @@ namespace Application.Common.Interfaces
     {
         Task<List<Product>> GetProducts();
         Task<Product> GetProduct(int productId);
+        Task<bool> CreateOrUpdate(Product product);
     }
 }

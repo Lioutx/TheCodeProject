@@ -8,7 +8,7 @@ namespace Infrastructure.Mapping
     {
         public InfrastructureMapper() 
         {
-            CreateMap<ProductDto, Product>();
+            CreateMap<ProductDto, Product>().ReverseMap();
         }
     }
 }

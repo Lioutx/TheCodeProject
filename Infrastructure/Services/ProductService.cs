@@ -17,6 +17,20 @@ namespace Infrastructure.Services
             _mapper = mapper;
         }
 
+        public async Task<bool> CreateOrUpdate(Product product)
+        {
+            ProductDto productDto = _mapper.Map<ProductDto>(product);
+
+            if (productDto.Id.HasValue && productDto.Id > 0)
+            {
+                return await _productRepository.Update(productDto);
+            }
+
+            int? newProductId = await _productRepository.Create(productDto);
+
+            return newProductId.HasValue && newProductId.Value > 0;
+        }
+
         public async Task<Product> GetProduct(int productId)
         {
             ProductDto productDto = await _productRepository.Get(productId);

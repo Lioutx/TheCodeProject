@@ -17,6 +17,32 @@ namespace Infrastructure.Persistance.Repositories
             _connectionStrings = configuration.Value;
         }
 
+        public async Task<bool> Update(ProductDto product)
+        {
+            using (var connection = new NpgsqlConnection(_connectionStrings.PostgreDB))
+            {
+                string command = "UPDATE product SET Name=@name, MeasurementUnit=@measurementUnit, MeasurementValue=@measurementValue, BuyAlways=@buyAlways, CookedToUncookedRatio=@cookedToUncookedRatio WHERE ID = @id";
+                
+                CommandDefinition commandDefinition = new CommandDefinition(command, parameters: new { product.Id, product.Name, product.MeasurementUnit, product.MeasurementValue, product.BuyAlways, product.CookedToUncookedRatio });
+
+                await connection.QueryFirstOrDefaultAsync(commandDefinition);
+
+                return true;
+            }
+        }
+
+        public async Task<int?> Create(ProductDto product)
+        {
+            using (var connection = new NpgsqlConnection(_connectionStrings.PostgreDB))
+            {
+                string command = "INSERT INTO product (Name, MeasurementUnit, MeasurementValue, BuyAlways, CookedToUncookedRatio) VALUES (@name, @measurementUnit, @measurementValue, @buyAlways, @cookedToUncookedRatio) RETURNING Id";
+                
+                CommandDefinition commandDefinition = new CommandDefinition(command, parameters: new { product.Id, product.Name, product.MeasurementUnit, product.MeasurementValue, product.BuyAlways, product.CookedToUncookedRatio });
+
+                return await connection.QueryFirstOrDefaultAsync<int?>(commandDefinition);
+            }
+        }
+
         public async Task<ProductDto> Get(int productId)
         {
             if (productId <= 0)
