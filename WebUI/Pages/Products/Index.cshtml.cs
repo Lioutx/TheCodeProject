@@ -1,6 +1,8 @@
+using Application.Products.Commands;
 using Application.Products.Queries;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebUI.ViewModels;
 
@@ -27,6 +29,13 @@ namespace WebUI.Pages.Products
         {
             var products = await _mediator.Send(new GetProductsQuery());
             Products = _mapper.Map<List<Product>>(products);
+        }
+
+        public async Task<ActionResult> OnGetDelete(int id)
+        {
+            await _mediator.Send(new DeleteProductCommand() { ProductId = id });
+
+            return RedirectToAction("Index");
         }
     }
 }

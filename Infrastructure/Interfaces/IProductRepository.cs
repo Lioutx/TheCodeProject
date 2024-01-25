@@ -8,5 +8,6 @@ namespace Infrastructure.Interfaces
 		Task<List<ProductDto>> GetAll();
         Task<bool> Update(ProductDto product);
         Task<int?> Create(ProductDto product);
+        Task<bool> Delete(int productId);
     }
 }

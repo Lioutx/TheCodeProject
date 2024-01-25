@@ -73,5 +73,23 @@ namespace Infrastructure.Persistance.Repositories
 				return productsDto.ToList();
 			}
 		}
-	}
+
+		public async Task<bool> Delete(int productId)
+		{
+            if (productId <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(productId));
+            }
+
+            using (var connection = new NpgsqlConnection(_connectionStrings.PostgreDB))
+            {
+                string command = "DELETE FROM product WHERE ID = @productId";
+                CommandDefinition commandDefinition = new CommandDefinition(command, parameters: new { productId });
+
+                int affectedRows = await connection.ExecuteAsync(commandDefinition);
+
+                return affectedRows > 0;
+            }
+        }
+    }
 }

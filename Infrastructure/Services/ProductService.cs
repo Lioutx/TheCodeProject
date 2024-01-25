@@ -47,5 +47,11 @@ namespace Infrastructure.Services
 
             return products;
         }
+
+        public async Task<bool> Delete(int productId)
+        {
+            bool success = await _productRepository.Delete(productId);
+            return success;
+        }
     }
 }
