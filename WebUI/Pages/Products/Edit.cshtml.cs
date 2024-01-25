@@ -33,7 +33,7 @@ namespace WebUI.Pages.Products
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync()
         {
             var productUpdate = _mapper.Map<Domain.Entities.Product>(Product);
 

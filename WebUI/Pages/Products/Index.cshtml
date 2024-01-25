@@ -22,6 +22,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Products[0].MeasurementUnitDisplay)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products[0].CookedToUncookedRatio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products[0].BuyAlways)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -39,8 +45,13 @@
                     @Html.DisplayFor(modelItem => item.MeasurementUnitDisplay)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.CookedToUncookedRatio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyAlways)
+                </td>
+                <td>
                     <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-page-handler="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
