@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Aggregates;
 using Domain.Entities;
 
 namespace WebUI.Mapping
@@ -8,6 +9,7 @@ namespace WebUI.Mapping
         public AutomapperConfig() 
         {
             CreateMap<Product, ViewModels.Product>().ReverseMap();        
+            CreateMap<Recipe, ViewModels.Recipe>().ReverseMap();        
         }
     }
 }

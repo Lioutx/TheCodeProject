@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Domain.Entities;
 using Infrastructure.Config;
 using Infrastructure.DTOs;
 using Infrastructure.Interfaces;
@@ -58,7 +57,7 @@ namespace Infrastructure.Persistance.Repositories
                 ProductDto productDto = await connection.QueryFirstOrDefaultAsync<ProductDto>(commandDefinition);
 
                 return productDto;
-            }                        
+            }
         }
 
 		public async Task<List<ProductDto>> GetAll()
