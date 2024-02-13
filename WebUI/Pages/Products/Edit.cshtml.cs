@@ -39,7 +39,7 @@ namespace WebUI.Pages.Products
 
             await _mediator.Send(new CreateOrUpdateProductCommand() { Product = productUpdate });
 
-            return Page();
+            return Redirect("/Products/Index");
         }
     }
 }

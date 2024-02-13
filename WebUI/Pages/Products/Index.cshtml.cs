@@ -28,7 +28,7 @@ namespace WebUI.Pages.Products
         public async Task OnGetAsync()
         {
             var products = await _mediator.Send(new GetProductsQuery());
-            Products = _mapper.Map<List<Product>>(products);
+            Products = _mapper.Map<List<Product>>(products).OrderBy(x => x.Name).ToList();
         }
 
         public async Task<ActionResult> OnGetDelete(int id)
