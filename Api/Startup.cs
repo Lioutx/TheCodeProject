@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Autofac;
+﻿using Api.Middlewares;
 using Application;
+using Autofac;
 using Infrastructure;
 
 public class Startup
@@ -35,6 +31,7 @@ public class Startup
     // Configure the middleware pipeline here
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
         app.UseSwagger(); // Generate Swagger JSON endpoint
         app.UseSwaggerUI(c =>
         {
